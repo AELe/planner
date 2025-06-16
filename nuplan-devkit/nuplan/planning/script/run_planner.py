@@ -5,6 +5,7 @@ from pathlib import Path
 import tempfile
 import hydra
 from nuplan.planning.simulation.planner.project2.my_planner import MyPlanner
+from nuplan.planning.simulation.planner.project2.my_planner_long import MyPlanner01
 from nuplan.planning.simulation.planner.simple_planner import SimplePlanner
 from nuplan.planning.simulation.planner.idm_planner import IDMPlanner
 from tutorials.utils.tutorial_utils import construct_simulation_hydra_paths
@@ -34,8 +35,8 @@ DATASET_PARAMS = [
     'scenario_builder=nuplan_mini',  # use nuplan mini database (2.5h of 8 autolabeled logs in Las Vegas)
     'scenario_filter=one_continuous_log',  # simulate only one log
 
-    # "scenario_filter.log_names=['2021.06.23.15.56.12_veh-16_00839_01285']", # changing_lane
-    # "scenario_filter.scenario_tokens=['6d1811320c635e82']",
+    "scenario_filter.log_names=['2021.06.23.15.56.12_veh-16_00839_01285']", # changing_lane
+    "scenario_filter.scenario_tokens=['6d1811320c635e82']",
 
     # "scenario_filter.log_names=['2021.07.09.20.59.12_veh-38_01208_01692']",  # near_multiple_vehicles
     # "scenario_filter.scenario_tokens=['4f3cac1a0bcb5b89']",
@@ -73,8 +74,8 @@ DATASET_PARAMS = [
     # "scenario_filter.log_names=['2021.06.14.16.48.02_veh-12_04978_05337']",  # starting_unprotected_cross_turn
     # "scenario_filter.scenario_tokens=['143076200fec5eb1']",
 
-    "scenario_filter.log_names=['2021.10.01.19.16.42_veh-28_02011_02410']",  # starting_unprotected_cross_turn
-    "scenario_filter.scenario_tokens=['be051cec36545b3d']",
+    # "scenario_filter.log_names=['2021.10.01.19.16.42_veh-28_02011_02410']",  # starting_unprotected_cross_turn
+    # "scenario_filter.scenario_tokens=['be051cec36545b3d']",
 
     # "scenario_filter.log_names=['2021.08.17.17.17.01_veh-45_02314_02798']",  # starting_left_turn
     # "scenario_filter.scenario_tokens=['d1352bb76f41547b']",

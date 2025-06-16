@@ -130,8 +130,18 @@ class MyPlanner(AbstractPlanner):
         y = ego_state.car_footprint.center.y
         vx = ego_state.dynamic_car_state.rear_axle_velocity_2d.x
         vy = ego_state.dynamic_car_state.rear_axle_velocity_2d.y
+        global_vx, global_vy = local2global_vector(
+        ego_state.dynamic_car_state.rear_axle_velocity_2d.x,
+        ego_state.dynamic_car_state.rear_axle_velocity_2d.y,
+        ego_state.car_footprint.center.heading
+    )
         ax = ego_state.dynamic_car_state.rear_axle_acceleration_2d.x
         ay = ego_state.dynamic_car_state.rear_axle_acceleration_2d.y
+        global_ax, global_ay = local2global_vector(
+        ego_state.dynamic_car_state.rear_axle_acceleration_2d.x,
+        ego_state.dynamic_car_state.rear_axle_acceleration_2d.y,
+        ego_state.car_footprint.center.heading
+    )
 
         frenet_path_x = reference_path_provider._x_of_reference_line
         frenet_path_y = reference_path_provider._y_of_reference_line
@@ -144,12 +154,13 @@ class MyPlanner(AbstractPlanner):
 
         try:
             s_set, l_set, s_dot_set, l_dot_set, dl_set, l_dot2_set, s_dot2_set, ddl_set = cartesian2frenet(
-                [x], [y], [vx], [vy], [ax], [ay],
+                [x], [y], [global_vx], [global_vy], [global_ax], [global_ay],
                 frenet_path_x, frenet_path_y, frenet_path_heading, frenet_path_kappa, frenet_path_s
             )
             current_s = s_set[0]
             current_speed = s_dot_set[0]
             current_accel = s_dot2_set[0]
+            logger.info(f"current_speed:{current_speed}, current_accel:{current_accel}")
 
         except Exception as e:
             logger.error(f"Frenet conversion failed: {e}")
