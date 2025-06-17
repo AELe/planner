@@ -19,28 +19,7 @@ class SimplePredictor(AbstractPredictor):
         self._sample_time = sample_time
         self._occupancy_map_radius = 40
 
-    # def predict(self):
-    #     """Inherited, see superclass."""
-    #     if isinstance(self._observations, DetectionsTracks):
-    #         objects_init = self._observations.tracked_objects.tracked_objects
-    #         objects = [
-    #             object
-    #             for object in objects_init
-    #             if np.linalg.norm(self._ego_state.center.array - object.center.array) < self._occupancy_map_radius
-    #         ]
-
-    #         # TODO：1.Predicted the Trajectory of object
-    #         for object in objects:
-    #             predicted_trajectories = []  # predicted_trajectories : List[PredictedTrajectory]
-                
-    #             object.predictions = predicted_trajectories
-
-    #         return objects
-
-    #     else:
-    #         raise ValueError(
-    #             f"SimplePredictor only supports DetectionsTracks. Got {self._observations.detection_type()}")
-
+ 
 
     def predict(self):
         """使用定速度模型预测物体轨迹"""
@@ -62,15 +41,13 @@ class SimplePredictor(AbstractPredictor):
                 waypoints = []
                 for t in np.arange(0, prediction_horizon + prediction_time_step, prediction_time_step):
                     predicted_pos = current_pos + current_vel * t
-                    
-                    # 创建StateSE2作为中心点（包含位置和朝向）
+                     
                     center = StateSE2(
                         x=float(predicted_pos[0]),
                         y=float(predicted_pos[1]),
-                        heading=current_heading  # 保持原始朝向，定速度模型不改变方向
+                        heading=current_heading
                     )
-                    
-                    # 创建OrientedBox
+                     
                     oriented_box = OrientedBox(
                         center=center,
                         length=obj.box.length if hasattr(obj, 'box') else 4.0,
