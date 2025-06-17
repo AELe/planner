@@ -5,6 +5,7 @@ You can find the algorithm in nuplan-devkit/nuplan/planning/simulation/planner/p
 
 It implemented following car function use "Frenet Optimal Trajectory Planner" algorithm in frame "nuplan"
 
+![Scenario 1](path/to/your-video.mp4)
 Scenario 1
 https://github.com/AELe/planner/blob/main/images/following_car_s1.gif
 Scenario 2
