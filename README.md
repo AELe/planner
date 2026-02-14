@@ -1,5 +1,5 @@
 # planner
-planner practice
+lattice planner base nuplan
 
 You can find the algorithm in nuplan-devkit/nuplan/planning/simulation/planner/project2/my_planner.py
 
